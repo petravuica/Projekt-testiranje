@@ -25,10 +25,17 @@ Local Server: **JSON SERVER**
 
 7. Check json version with command **json-server --version**, if it is not downloaded, install it with this command **npm install -g json-server@0.16.3**
 
-8. Make a backup copy of the database -> **copy db.json db_backup.json**
+8. It creates a directory for json-server -> **C:\Users\user\AppData\Roaming\npm**
+9. Create db.json file with starting data on that path **C:\Users\user\AppData\Roaming\npm\db.json**
+   (db.json file can be found in the project folder)
 
-9. Start json-server -> **json-server --port 7000 --routes routes.json --watch db.json**
+10. Create routes.json file with starting routes on that path **C:\Users\user\AppData\Roaming\npm\routes.json**
+   (routes.json file can be found in the project folder)
 
-10. Open http://localhost:7000 in your browser
+10. Make a backup copy of the database -> **copy db.json db_backup.json**
 
-11. Right click on **textng.xml** file in IntelliJ and run the file or open test package, restapi package and RestApiTests class and run it.
+11. Start json-server -> **json-server --port 7000 --routes routes.json --watch db.json**
+
+12. Open http://localhost:7000 in your browser
+
+13. Right click on **textng.xml** file in IntelliJ and run the file or open test package, restapi package and RestApiTests class and run it.
