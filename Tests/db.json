@@ -1,0 +1,61 @@
+{
+  "products": [
+    {
+      "name": "Updated Smartphone",
+      "category": "Electronics",
+      "price": "850 €",
+      "stock": 45,
+      "id": 2
+    },
+    {
+      "id": 3,
+      "name": "Coffee Maker",
+      "category": "Home Appliances",
+      "price": "150 €",
+      "stock": 30
+    },
+    {
+      "id": 4,
+      "name": "Headphones",
+      "category": "Electronics",
+      "price": "200 €",
+      "stock": 15
+    },
+    {
+      "name": "Coffee Maker",
+      "price": "150 €",
+      "id": 5
+    },
+    {
+      "id": 6,
+      "name": "Smartwatch",
+      "category": "Electronics",
+      "price": "300 €",
+      "stock": 40
+    },
+    {
+      "id": 7,
+      "name": "Blender",
+      "category": "Home Appliances",
+      "price": "90 €",
+      "stock": 60
+    },
+    {
+      "id": 8,
+      "name": "Desk Lamp",
+      "category": "Furniture",
+      "price": "50 €",
+      "stock": 20
+    },
+    {
+      "name": "Smartphone",
+      "category": "Electronics",
+      "id": 9
+    },
+    {
+      "name": "Smartwatch",
+      "category": "Electronics",
+      "id": 10
+    }
+  ]
+}
