@@ -1,11 +1,18 @@
 {
   "products": [
     {
-      "name": "Updated Smartphone",
+      "id": 1,
+      "name": "Laptop",
+      "category": "Electronics",
+      "price": "1000 €",
+      "stock": 14
+    },
+    {
+      "id": 2,
+      "name": "Smartphone",
       "category": "Electronics",
       "price": "850 €",
-      "stock": 45,
-      "id": 2
+      "stock": 45
     },
     {
       "id": 3,
@@ -22,9 +29,11 @@
       "stock": 15
     },
     {
-      "name": "Coffee Maker",
-      "price": "150 €",
-      "id": 5
+      "id": 5,
+      "name": "Fridge",
+      "price": "600 €",
+      "category": "Home Appliances",
+      "stock": 12
     },
     {
       "id": 6,
@@ -48,14 +57,11 @@
       "stock": 20
     },
     {
-      "name": "Smartphone",
+      "id": 9,
+      "name": "Wireless Earbuds",
       "category": "Electronics",
-      "id": 9
-    },
-    {
-      "name": "Smartwatch",
-      "category": "Electronics",
-      "id": 10
+      "price": "100 €",
+      "stock": 5
     }
   ]
 }

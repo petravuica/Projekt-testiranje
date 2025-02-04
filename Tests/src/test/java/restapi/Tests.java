@@ -4,19 +4,31 @@ import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.hasItems;
 import org.hamcrest.Matchers;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+
+import org.testng.annotations.Test;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 public class Tests {
     final static String ROOT_URI = "http://localhost:7000/products";
+
+    @BeforeTest
+    public void resetDatabase() throws IOException {
+        Files.copy(Paths.get("db_backup.json"), Paths.get("db.json"), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+    }
+
 
     @Test
     public void testGetProducts_success() {
         Response response = get(ROOT_URI + "/list");
         System.out.println(response.asString());
         response.then().body("id", hasItems(3, 4));
-        response.then().body("name", hasItems("Laptop"));
+        response.then().body("name", hasItems("Smartwatch"));
     }
     @Test
     public void testPostProducts_success() {
@@ -56,30 +68,24 @@ public class Tests {
     }
     @Test
     public void testDeletePlanet_success() {
-        // Retrieve the list of planets
         Response getResponse = given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
                 .when()
                 .get(ROOT_URI + "/list");
 
-        // Extract the planet ID from the response
         int productId = getResponse.jsonPath().getInt("[0].id");
         System.out.println("Extracted productId: " + productId);
 
-        // Delete the planet using the extracted `planetId`
         Response response = delete(ROOT_URI + "/delete/" + productId);
         System.out.println(response.asString());
         System.out.println(response.getStatusCode());
 
-        // Verify that the status code is 200 indicating success
         response.then().statusCode(200);
 
-        // Retrieve the list of planets again
         response = get(ROOT_URI + "/list");
         System.out.println(response.asString());
 
-        // Verify that the response does not contain the deleted planet
         response.then().body("id", Matchers.not(productId));
     }
 
@@ -97,14 +103,11 @@ public class Tests {
     }
     @Test
     public void testUpdateProductAndValidate() {
-        // Kreiramo novi proizvod za testiranje
-        int productId = 2;  // ID proizvoda koji želimo da ažuriramo
+        int productId = 2;
 
-        // Prvo proveravamo da proizvod postoji pre nego što ga ažuriramo
         Response getResponseBeforeUpdate = get(ROOT_URI + "/get/" + productId);
-        getResponseBeforeUpdate.then().statusCode(200); // Proveravamo da proizvod postoji
+        getResponseBeforeUpdate.then().statusCode(200);
 
-        // Ažuriramo proizvod sa novim podacima
         String updatedProductJson = "{"
                 + "\"name\": \"Updated Smartphone\","
                 + "\"category\": \"Electronics\","
@@ -120,7 +123,6 @@ public class Tests {
 
         System.out.println("PUT Response: " + updateResponse.asString());
 
-        // Proveravamo da li je proizvod ažuriran (status kod 200 i ID i ime)
         updateResponse.then().statusCode(200);
         updateResponse.then().body("id", Matchers.is(productId));
         updateResponse.then().body("name", Matchers.is("Updated Smartphone"));
@@ -128,11 +130,9 @@ public class Tests {
         updateResponse.then().body("price", Matchers.is("850 €"));
         updateResponse.then().body("stock", Matchers.is(45));
 
-        // Sada proveravamo da li su svi podaci o proizvodu ažurirani kroz GET zahtev
         Response getResponseAfterUpdate = get(ROOT_URI + "/get/" + productId);
         System.out.println("GET Response after Update: " + getResponseAfterUpdate.asString());
 
-        // Verifikacija da su svi podaci tačni nakon ažuriranja
         getResponseAfterUpdate.then().statusCode(200);
         getResponseAfterUpdate.then().body("id", Matchers.is(productId));
         getResponseAfterUpdate.then().body("name", Matchers.is("Updated Smartphone"));
@@ -140,7 +140,6 @@ public class Tests {
         getResponseAfterUpdate.then().body("price", Matchers.is("850 €"));
         getResponseAfterUpdate.then().body("stock", Matchers.is(45));
 
-        // Verifikacija da proizvod nije promenio u nekom drugom aspektu
         getResponseAfterUpdate.then().body("price", Matchers.not("150 €"));
         getResponseAfterUpdate.then().body("stock", Matchers.not(30));
     }
