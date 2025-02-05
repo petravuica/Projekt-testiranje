@@ -44,8 +44,8 @@ public class Tests {
         response.then().body("name", Matchers.is("Smartphone"));
     }
     @Test
-    public void testGetPlanetById_success() {
-        int productId = 4;  // ID of the planet to retrieve
+    public void testGetProductById_success() {
+        int productId = 4;
         Response response = get(ROOT_URI + "/get/" + productId);
 
         System.out.println(response.toString());
@@ -67,7 +67,7 @@ public class Tests {
         response.then().body("category", Matchers.is("Electronics"));
     }
     @Test
-    public void testDeletePlanet_success() {
+    public void testDeleteProduct_success() {
         Response getResponse = given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
